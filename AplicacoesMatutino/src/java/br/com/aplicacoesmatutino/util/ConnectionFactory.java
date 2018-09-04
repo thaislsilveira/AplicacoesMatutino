@@ -16,7 +16,7 @@ import java.sql.Statement;
  * @author PC 05
  */
 public class ConnectionFactory {
-    //Criar o método que retorna uma conexão
+    //Cria o método que retorna uma conexão
     
     public static Connection getConnection() throws Exception{
         try{

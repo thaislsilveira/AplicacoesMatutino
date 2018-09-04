@@ -52,7 +52,7 @@ public class UsuarioDAOImpl implements GenericDAO{
           try{
               ConnectionFactory.closeConnection(conexao, stmt);
           }catch(Exception ex){
-              System.out.println("Problemas ao fehcar os parâmetros de conexao! " + ex.getMessage());
+              System.out.println("Problemas ao fechar os parâmetros de conexao! " + ex.getMessage());
           }
       }
     }
