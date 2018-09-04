@@ -9,7 +9,9 @@ import br.com.aplicacoesmatutino.model.Usuario;
 import br.com.aplicacoesmatutino.util.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,7 +81,37 @@ public class UsuarioDAOImpl implements GenericDAO{
 
     @Override
     public List<Object> Listar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       List<Object> usuarios = new ArrayList<Object>();
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+       
+       String sql = "SELECT * FROM  usuario order by nome_Usuario;";
+       
+       try{
+           stmt = conexao.prepareStatement(sql);
+           rs = stmt.executeQuery();
+           while(rs.next()){
+               Usuario usuario = new Usuario();
+               usuario.setIdUsuario(rs.getInt("id_usuario"));
+               usuario.setNomeUsuario(rs.getString("nome_usuario"));
+               usuario.setDataNascimentoUsuario(rs.getDate("datanascimento_usuario"));
+               usuario.setLoginUsuario(rs.getString("login_usuario"));
+               usuario.setSenhaUsuario(rs.getString("senha_usuario"));
+               usuarios.add(usuario);
+               
+           }
+       }catch(SQLException ex){
+           System.out.println("Problemas ao Listar Usuários! Erro " + ex.getMessage());           
+       }finally{
+           try{
+               ConnectionFactory.closeConnection(conexao, stmt);
+           }catch(Exception ex){
+               System.out.println("Problemas ao fechar os parâmetrs de conexão! "
+               + "Erro " +ex.getMessage());
+           }
+       }        
+       
+       return usuarios; 
     }
     
 }
