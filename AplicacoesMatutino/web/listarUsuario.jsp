@@ -4,6 +4,7 @@
     Author     : PC 05
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page import="br.com.aplicacoesmatutino.model.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -36,7 +37,7 @@
             <tr>
                 <td align="center"><%=usuario.getIdUsuario()%></td>
                 <td align="center"><%=usuario.getNomeUsuario()%></td>
-                <td align="center"></td>
+                <td align="center"><fmt:formatDate value="<%=usuario.getDataNascimentoUsuario()%>" type="date" pattern="dd/MM/yyyy"></fmt:formatDate></td>
                 <td align="center"><%=usuario.getLoginUsuario()%></td>
                 <td align="center"><a href="ExcluirUsuario?idUsuario=<%=usuario.getIdUsuario()%>">Excluir</a></td>
                 <td align="center"><a href="CarregarUsuario?idUsuario=<%=usuario.getIdUsuario()%>">Carregar</a></td>

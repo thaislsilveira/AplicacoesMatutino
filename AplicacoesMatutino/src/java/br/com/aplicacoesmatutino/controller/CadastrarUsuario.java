@@ -50,7 +50,7 @@ public class CadastrarUsuario extends HttpServlet {
                 mensagem = " Problemas ao cadastrar Usuário";
             }
             request.setAttribute("mensagem", mensagem);
-            request.getRequestDispatcher("cadastrarUsuario.jsp").forward(request, response);
+            request.getRequestDispatcher("ListarUsuario").forward(request, response);
         } catch (Exception ex) {
             System.out.println("Problemas no Servlet ao cadastrar Usuário! Erro " + ex.getMessage());
         }
