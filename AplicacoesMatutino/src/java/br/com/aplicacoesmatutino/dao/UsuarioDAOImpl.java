@@ -81,7 +81,7 @@ public class UsuarioDAOImpl implements GenericDAO {
             stmt.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            System.out.println("Problemas ao xxcluir usuários! Erro: " + ex.getMessage());
+            System.out.println("Problemas ao excluir usuários! Erro: " + ex.getMessage());
             return false;
         } finally {
             try {

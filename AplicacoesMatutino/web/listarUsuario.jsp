@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Gerenciaamento de Usuários</title>
+        <title>Gerenciamento de Usuários</title>
     </head>
     <body>
         <h1 align="center">Fatec Jales</h1>
