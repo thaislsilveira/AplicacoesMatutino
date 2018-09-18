@@ -40,7 +40,7 @@
                 <td align="center"><fmt:formatDate value="<%=usuario.getDataNascimentoUsuario()%>" type="date" pattern="dd/MM/yyyy"></fmt:formatDate></td>
                 <td align="center"><%=usuario.getLoginUsuario()%></td>
                 <td align="center"><a href="ExcluirUsuario?idUsuario=<%=usuario.getIdUsuario()%>">Excluir</a></td>
-                <td align="center"><a href="CarregarUsuario?idUsuario=<%=usuario.getIdUsuario()%>">Carregar</a></td>
+                <td align="center"><a href="CarregarUsuario?idUsuario=<%=usuario.getIdUsuario()%>">Alterar</a></td>
             </tr>
             
             <% } %>

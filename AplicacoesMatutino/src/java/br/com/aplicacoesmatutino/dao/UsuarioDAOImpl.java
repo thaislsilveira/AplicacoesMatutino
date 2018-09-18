@@ -66,7 +66,31 @@ public class UsuarioDAOImpl implements GenericDAO {
 
     @Override
     public Boolean alterar(Object objeto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Usuario usuario = (Usuario) objeto;
+        PreparedStatement stmt = null;
+        String sql = "update usuario set nome_usuario = ?, dataNascimento_usuario = ?, login_usuario = ?, senha_usuario = ? where id_usuario = ?;";
+        
+        try{
+            stmt = conexao.prepareStatement(sql);
+            stmt.setString(1, usuario.getNomeUsuario());            
+            stmt.setDate(2, new java.sql.Date(usuario.getDataNascimentoUsuario().getTime()));
+            stmt.setString(3, usuario.getLoginUsuario());
+            stmt.setString(4, usuario.getSenhaUsuario());
+            stmt.setInt(5, usuario.getIdUsuario());            
+            stmt.executeUpdate();
+            
+            return true;
+        }catch(SQLException ex){
+            System.out.println("Problemas ao alterar usuário! Erro " + ex.getMessage());
+            return false;            
+        }finally{
+            try{
+                ConnectionFactory.closeConnection(conexao, stmt);
+            }catch(Exception ex){
+                System.out.println("Problemas ao fechar os parâmetros de conexão! Erro: " + ex.getMessage());
+            }
+        }
     }
 
     @Override
@@ -93,8 +117,33 @@ public class UsuarioDAOImpl implements GenericDAO {
     }
 
     @Override
-    public Object carregar(int numero) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object carregar(int id) {
+       Usuario usuario = new Usuario();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String sql = "select * from Usuario where id_usuario = ?;";
+        try {
+            stmt = conexao.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setNomeUsuario(rs.getString("nome_usuario"));
+                usuario.setDataNascimentoUsuario(rs.getDate("datanascimento_usuario"));
+                usuario.setLoginUsuario(rs.getString("login_usuario"));
+                usuario.setSenhaUsuario(rs.getString("senha_usuario"));
+            }
+            return usuario;
+        } catch (SQLException ex) {
+            System.out.println("Erro no UsuarioDAOImpl ao excluir usuário: " + ex.getMessage());
+            return false;
+        } finally {
+            try {
+                ConnectionFactory.closeConnection(conexao, stmt);
+            } catch (Exception ex) {
+                System.out.println("Erro na UsuarioDAOImpl ao fechar conexão: " + ex.getMessage());
+            }
+        }
     }
 
     @Override
