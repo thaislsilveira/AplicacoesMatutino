@@ -35,11 +35,11 @@ public class TipoUsuarioDAOImpl implements GenericDAO  {
     public Boolean cadastrar(Object objeto) {
        TipoUsuario tipousuario = (TipoUsuario) objeto;
         PreparedStatement stmt = null;
-        String sql = "Insert into TipoUsuario(descricao_tipo_usuario) values (?)";
+        String sql = "Insert into TipoUsuario(descricaoTipoUsuario) values (?)";
 
         try {
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, tipousuario.getDescricao_Tipo_usario());
+            stmt.setString(1, tipousuario.getDescricaoTipoUsuario());
             stmt.execute();
 
             return true;
@@ -64,12 +64,12 @@ public class TipoUsuarioDAOImpl implements GenericDAO  {
     public Boolean alterar(Object objeto) {
       TipoUsuario tipousuario = (TipoUsuario) objeto;
         PreparedStatement stmt = null;
-        String sql = "update TipoUsuario set descricao_tipo_usuario = ? where id_tipo_usuario = ?;";
+        String sql = "update TipoUsuario set descricaoTipoUsuario = ? where idTipoUsuario = ?;";
         
         try{
             stmt = conexao.prepareStatement(sql);
-            stmt.setString(1, tipousuario.getDescricao_Tipo_usario());            
-            stmt.setInt(2, tipousuario.getId_Tipo_Usuario());            
+            stmt.setString(1, tipousuario.getDescricaoTipoUsuario());            
+            stmt.setInt(2, tipousuario.getIdTipoUsuario());            
             stmt.executeUpdate();
             
             return true;
@@ -89,7 +89,7 @@ public class TipoUsuarioDAOImpl implements GenericDAO  {
     public Boolean excluir(int idObject) {
        PreparedStatement stmt = null;
         
-        String sql = "DELETE FROM TipoUsuario WHERE id_tipo_usuario?";
+        String sql = "DELETE FROM TipoUsuario WHERE idTipoUsuario = ?";
         try {
             stmt = conexao.prepareStatement(sql);
 
@@ -113,14 +113,14 @@ public class TipoUsuarioDAOImpl implements GenericDAO  {
         TipoUsuario tipousuario = new TipoUsuario();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "select * from TipoUsuario where id_tipo_usuario = ?;";
+        String sql = "select * from TipoUsuario where idTipoUsuario = ?;";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while(rs.next()){
-                tipousuario.setId_Tipo_Usuario(rs.getInt("id_tipo_usuario"));
-                tipousuario.setDescricao_Tipo_usario(rs.getString("descricao_tipo_usuario"));
+                tipousuario.setIdTipoUsuario(rs.getInt("idTipoUsuario"));
+                tipousuario.setDescricaoTipoUsuario(rs.getString("descricaoTipoUsuario"));
             }
             return tipousuario;
         } catch (SQLException ex) {
@@ -141,15 +141,15 @@ public class TipoUsuarioDAOImpl implements GenericDAO  {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "SELECT * FROM  TipoUsuario order by descricao_tipo_usuario;";
+        String sql = "SELECT * FROM  TipoUsuario order by descricaoTipoUsuario;";
 
         try {
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 TipoUsuario tipousuario = new TipoUsuario();
-                tipousuario.setId_Tipo_Usuario(rs.getInt("id_tipo_usuario"));
-                tipousuario.setDescricao_Tipo_usario(rs.getString("descricao_tipo_usuario"));
+                tipousuario.setIdTipoUsuario(rs.getInt("idTipoUsuario"));
+                tipousuario.setDescricaoTipoUsuario(rs.getString("descricaoTipoUsuario"));
                 tipoUsuarios.add(tipousuario);
 
             }

@@ -19,7 +19,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Controle de Usuários</h5>               
-                <a href="cadastrarUsuario.jsp" class="btn btn-primary">Cadastrar Usuário</a>
+                <a href="TiposUsuario" class="btn btn-primary">Cadastrar Usuário</a>
                 <a href="cadastrarTipoUsuario.jsp" class="btn btn-primary">Cadastrar Tipo de Usuário</a>
                 <a href="ListarTipoUsuario" class="btn btn-primary">Listar Tipo de Usuário</a>
                 <a href="ListarUsuario" class="btn btn-primary">Listar Usuário</a>

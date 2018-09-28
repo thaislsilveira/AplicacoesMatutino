@@ -48,6 +48,7 @@ public class AlterarUsuario extends HttpServlet {
             Date dataNascimentoUsuario = Conversoes.converterData(request.getParameter("dataNascimentoUsuario"));
             String loginUsuario = request.getParameter("loginUsuario");
             String senhaUsuario = request.getParameter("senhaUsuario");
+            Integer idTipoUsuario = Integer.parseInt(request.getParameter("idTipoUsuario"));
             String mensagem = null;
             
             
@@ -57,6 +58,7 @@ public class AlterarUsuario extends HttpServlet {
             usuario.setDataNascimentoUsuario(dataNascimentoUsuario);
             usuario.setLoginUsuario(loginUsuario);
             usuario.setSenhaUsuario(senhaUsuario);
+            usuario.getTipo().setIdTipoUsuario(idTipoUsuario);
             
             try{
                 GenericDAO dao = new UsuarioDAOImpl();

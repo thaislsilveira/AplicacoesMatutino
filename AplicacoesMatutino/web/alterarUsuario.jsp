@@ -27,11 +27,7 @@
                 </button>
             </div>
             <form name="alterarusuario" id="alterarusuario" action="AlterarUsuario"  method="POST">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="loginUsuario">Id</label>
-                        <input  type="text" name="idUsuario" id="idUsuario" class="form-control" value="${usuario.idUsuario}">
-                    </div>
+                <div class="form-row">                   
                     <div class="form-group col-md-6">
                         <label for="nome">Nome</label>
                         <input type="text" class="form-control" id="NomeUsuario" name="nomeUsuario" value="${usuario.nomeUsuario}" >
@@ -48,6 +44,14 @@
                 <div class="form-group">
                     <label for="senhaUsuario">Senha</label>
                     <input type="password" name="senhaUsuario" id="senhaUsuario" class="form-control"  value="${usuario.senhaUsuario}">
+                </div>
+                <div class="form-group">
+                    <label for="tipoUsuario">Tipo</label>
+                    <select name="idtipousuario">
+                        <c:forEach var="tipo" items="${tipos}">
+                            <option value="${tipo.idTipoUsuario}">${tipo.descricaoTipoUsuario}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <button type="submit" name="cadastrar" id="cadastrar" value="Cadastrar" class="btn btn-primary">Cadastrar</button>
                 <button href="index.jsp" name="cadastrar" id="voltar" value="Voltar" class="btn btn-primary">Voltar</button>

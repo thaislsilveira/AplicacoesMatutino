@@ -38,14 +38,14 @@ public class AlterarTipoUsuario extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             
             
-            Integer idTipoUsuario = Integer.parseInt(request.getParameter("id_Tipo_usuario"));
-            String descricaoTipoUsuario = request.getParameter("descricao_Tipo_usuario");
+            Integer idTipoUsuario = Integer.parseInt(request.getParameter("idTipoUsuario"));
+            String descricaoTipoUsuario = request.getParameter("descricaoTipoUsuario");
             String mensagem = null;
             
             
             TipoUsuario tipousuario = new TipoUsuario();
-            tipousuario.setId_Tipo_Usuario(idTipoUsuario);
-            tipousuario.setDescricao_Tipo_usario(descricaoTipoUsuario);
+            tipousuario.setIdTipoUsuario(idTipoUsuario);
+            tipousuario.setDescricaoTipoUsuario(descricaoTipoUsuario);
           
             
             try{

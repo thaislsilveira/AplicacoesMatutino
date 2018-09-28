@@ -10,32 +10,32 @@ package br.com.aplicacoesmatutino.model;
  * @author PC 05
  */
 public class TipoUsuario {
-    private  Integer id_Tipo_Usuario;
-    private String Descricao_Tipo_usario ;
+    private  Integer idTipoUsuario;
+    private String descricaoTipoUsuario ;
 
     public TipoUsuario() {
     }
 
-    public TipoUsuario(Integer id_Tipo_Usuario, String Descricao_Tipo_usario) {
-        this.id_Tipo_Usuario = id_Tipo_Usuario;
-        this.Descricao_Tipo_usario = Descricao_Tipo_usario;
+    public TipoUsuario(Integer idTipoUsuario, String descricaoTipoUsuario) {
+        this.idTipoUsuario = idTipoUsuario;
+        this.descricaoTipoUsuario = descricaoTipoUsuario;
     }
 
-    public Integer getId_Tipo_Usuario() {
-        return id_Tipo_Usuario;
+    public Integer getIdTipoUsuario() {
+        return idTipoUsuario;
     }
 
-    public void setId_Tipo_Usuario(Integer id_Tipo_Usuario) {
-        this.id_Tipo_Usuario = id_Tipo_Usuario;
+    public void setIdTipoUsuario(Integer idTipoUsuario) {
+        this.idTipoUsuario = idTipoUsuario;
     }
 
-    public String getDescricao_Tipo_usario() {
-        return Descricao_Tipo_usario;
+    public String getDescricaoTipoUsuario() {
+        return descricaoTipoUsuario;
     }
 
-    public void setDescricao_Tipo_usario(String Descricao_Tipo_usario) {
-        this.Descricao_Tipo_usario = Descricao_Tipo_usario;
+    public void setDescricaoTipoUsuario(String descricaoTipoUsuario) {
+        this.descricaoTipoUsuario = descricaoTipoUsuario;
     }
+
    
-    
 }

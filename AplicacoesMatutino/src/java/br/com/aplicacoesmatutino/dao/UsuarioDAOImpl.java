@@ -5,6 +5,7 @@
  */
 package br.com.aplicacoesmatutino.dao;
 
+import br.com.aplicacoesmatutino.model.TipoUsuario;
 import br.com.aplicacoesmatutino.model.Usuario;
 import br.com.aplicacoesmatutino.util.ConnectionFactory;
 import java.sql.Connection;
@@ -35,8 +36,8 @@ public class UsuarioDAOImpl implements GenericDAO {
     public Boolean cadastrar(Object objeto) {
         Usuario usuario = (Usuario) objeto;
         PreparedStatement stmt = null;
-        String sql = "Insert into usuario(nome_usuario,datanascimento_usuario,"
-                + "login_usuario, senha_usuario) values (?, ?, ?, ?)";
+        String sql = "Insert into usuario(nomeUsuario,dataNascimentoUsuario,"
+                + "loginUsuario, senhaUsuario, tipoUsuario) values (?, ?, ?, ?, ?);";
 
         try {
             stmt = conexao.prepareStatement(sql);
@@ -44,6 +45,7 @@ public class UsuarioDAOImpl implements GenericDAO {
             stmt.setDate(2, new java.sql.Date(usuario.getDataNascimentoUsuario().getTime()));
             stmt.setString(3, usuario.getLoginUsuario());
             stmt.setString(4, usuario.getSenhaUsuario());
+            stmt.setInt(5, usuario.getTipo().getIdTipoUsuario());
             stmt.execute();
 
             return true;
@@ -69,7 +71,7 @@ public class UsuarioDAOImpl implements GenericDAO {
         
         Usuario usuario = (Usuario) objeto;
         PreparedStatement stmt = null;
-        String sql = "update usuario set nome_usuario = ?, dataNascimento_usuario = ?, login_usuario = ?, senha_usuario = ? where id_usuario = ?;";
+        String sql = "update usuario set nomeUsuario = ?, dataNascimentoUsuario = ?, loginUsuario = ?, senhaUsuario = ?, tipoUsuario = ? where idUsuario = ?;";
         
         try{
             stmt = conexao.prepareStatement(sql);
@@ -77,7 +79,7 @@ public class UsuarioDAOImpl implements GenericDAO {
             stmt.setDate(2, new java.sql.Date(usuario.getDataNascimentoUsuario().getTime()));
             stmt.setString(3, usuario.getLoginUsuario());
             stmt.setString(4, usuario.getSenhaUsuario());
-            stmt.setInt(5, usuario.getIdUsuario());            
+            stmt.setInt(5, usuario.getTipo().getIdTipoUsuario());            
             stmt.executeUpdate();
             
             return true;
@@ -97,7 +99,7 @@ public class UsuarioDAOImpl implements GenericDAO {
     public Boolean excluir(int idObject) {
         PreparedStatement stmt = null;
         
-        String sql = "DELETE FROM usuario WHERE id_usuario = ?";
+        String sql = "DELETE FROM usuario WHERE idUsuario = ?;";
         try {
             stmt = conexao.prepareStatement(sql);
 
@@ -121,17 +123,18 @@ public class UsuarioDAOImpl implements GenericDAO {
        Usuario usuario = new Usuario();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        String sql = "select * from Usuario where id_usuario = ?;";
+        String sql = "select * from Usuario where idUsuario = ?;";
         try {
             stmt = conexao.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             while(rs.next()){
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
-                usuario.setNomeUsuario(rs.getString("nome_usuario"));
-                usuario.setDataNascimentoUsuario(rs.getDate("datanascimento_usuario"));
-                usuario.setLoginUsuario(rs.getString("login_usuario"));
-                usuario.setSenhaUsuario(rs.getString("senha_usuario"));
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNomeUsuario(rs.getString("nomeUsuario"));
+                usuario.setDataNascimentoUsuario(rs.getDate("dataNascimentoUsuario"));
+                usuario.setLoginUsuario(rs.getString("loginUsuario"));
+                usuario.setSenhaUsuario(rs.getString("senhaUsuario"));
+                usuario.getTipo().setIdTipoUsuario(rs.getInt("idTipoUsuario"));
             }
             return usuario;
         } catch (SQLException ex) {
@@ -152,22 +155,23 @@ public class UsuarioDAOImpl implements GenericDAO {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        String sql = "SELECT * FROM  usuario order by nome_Usuario;";
+        String sql = "SELECT * FROM  usuario order by nomeUsuario;";
 
         try {
             stmt = conexao.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 Usuario usuario = new Usuario();
-                usuario.setIdUsuario(rs.getInt("id_usuario"));
-                usuario.setNomeUsuario(rs.getString("nome_usuario"));
-                usuario.setDataNascimentoUsuario(rs.getDate("datanascimento_usuario"));
-                usuario.setLoginUsuario(rs.getString("login_usuario"));
-                usuario.setSenhaUsuario(rs.getString("senha_usuario"));
+                usuario.setIdUsuario(rs.getInt("idUsuario"));
+                usuario.setNomeUsuario(rs.getString("nomeUsuario"));
+                usuario.setDataNascimentoUsuario(rs.getDate("dataNascimentoUsuario"));
+                usuario.setLoginUsuario(rs.getString("loginUsuario"));
+                usuario.setSenhaUsuario(rs.getString("senhaUsuario"));
+                usuario.setTipo((TipoUsuario) new TipoUsuarioDAOImpl().carregar(rs.getInt("tipousuario")));
                 usuarios.add(usuario);
 
             }
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println("Problemas ao Listar Usuários! Erro " + ex.getMessage());
         } finally {
             try {

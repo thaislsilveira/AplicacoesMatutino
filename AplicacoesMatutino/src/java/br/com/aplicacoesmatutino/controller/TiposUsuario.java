@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author PC 05
  */
-@WebServlet(name = "ExcluirTipoUsuario", urlPatterns = {"/ExcluirTipoUsuario"})
-public class ExcluirTipoUsuario extends HttpServlet {
+@WebServlet(name = "TiposUsuario", urlPatterns = {"/TiposUsuario"})
+public class TiposUsuario extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,23 +34,15 @@ public class ExcluirTipoUsuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-           int idTipoUsuario = Integer.parseInt(request.getParameter("idTipoUsuario"));
-            String mensagem = null;
+        try (PrintWriter out = response.getWriter()) {          
             
-            try{
-                GenericDAO dao = new TipoUsuarioDAOImpl();
-                if(dao.excluir(idTipoUsuario)){
-                    mensagem = "Tipo de Usuario excluído com sucesso!!";
-                }else{
-                    mensagem = "Problemas ao excluir Tipo de Usuário!!";
-                }     
-                request.setAttribute("mensagem", mensagem);
-                request.getRequestDispatcher("ListarTipoUsuario").forward(request, response);
-            }catch(Exception ex){
-                System.out.println("Problemas no Servlet ao excluir Tipo Usuário!! Erro : " + ex.getMessage());
-            }
+            GenericDAO dao = new TipoUsuarioDAOImpl();
+            request.setAttribute("tipos", dao.Listar());
+            request.getRequestDispatcher("cadastrarUsuario.jsp").forward(request, response);
+           
+        }catch(Exception ex){
+             System.out.println("Problemas ao carregar dados do usuário! Erro" 
+                    + ex.getMessage());
         }
     }
 

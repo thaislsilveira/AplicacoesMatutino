@@ -37,11 +37,11 @@ public class CadastrarTipoUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            String descricaoTipoUsuario = request.getParameter("descricao_tipo_usuario");
+            String descricaoTipoUsuario = request.getParameter("descricaoTipoUsuario");
             String mensagem = null;
 
             TipoUsuario tipousuario = new TipoUsuario();
-            tipousuario.setDescricao_Tipo_usario(descricaoTipoUsuario);
+            tipousuario.setDescricaoTipoUsuario(descricaoTipoUsuario);
 
             try {
                 GenericDAO dao = new TipoUsuarioDAOImpl();

@@ -36,7 +36,7 @@ public class CarregarUsuario extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             try {
-                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                Integer idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
                 GenericDAO dao = new UsuarioDAOImpl();
                 request.setAttribute("usuario", dao.carregar(idUsuario));
                 request.getRequestDispatcher("alterarUsuario.jsp").forward(request, response);

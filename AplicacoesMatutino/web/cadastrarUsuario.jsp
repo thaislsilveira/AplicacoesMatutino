@@ -4,6 +4,7 @@
     Author     : Thais Silveira
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,6 +40,14 @@
                 <div class="form-group">
                     <label for="senhaUsuario">Senha</label>
                     <input type="password" name="senhaUsuario" id="senhaUsuario" class="form-control">
+                </div>
+                 <div class="form-group">
+                    <label for="tipoUsuario">Tipo</label>
+                    <select name="idTipoUsuario">
+                        <c:forEach var="tipo" items="${tipos}">
+                            <option value="${tipo.idTipoUsuario}">${tipo.descricaoTipoUsuario}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <button type="submit" name="cadastrar" id="cadastrar" value="Cadastrar" class="btn btn-primary">Cadastrar</button>
                 <button href="index.jsp" name="cadastrar" id="voltar" value="Voltar" class="btn btn-primary">Voltar</button>

@@ -12,25 +12,24 @@ import java.util.Date;
  * @author PC 05
  */
 public class Usuario {
-    private  Integer idUsuario;
+
+    private Integer idUsuario;
     private String nomeUsuario;
     private Date dataNascimentoUsuario;
     private String loginUsuario;
     private String senhaUsuario;
+    private TipoUsuario tipo;
 
     public Usuario() {
     }
 
-    public Usuario(Integer idUsuario, String nomeUsuario, Date dataNascimentoUsuario, String loginUsuario, String senhaUsuario) {
+    public Usuario(Integer idUsuario, String nomeUsuario, Date dataNascimentoUsuario, String loginUsuario, String senhaUsuario, TipoUsuario tipo) {
         this.idUsuario = idUsuario;
         this.nomeUsuario = nomeUsuario;
         this.dataNascimentoUsuario = dataNascimentoUsuario;
         this.loginUsuario = loginUsuario;
         this.senhaUsuario = senhaUsuario;
-    }
-
-    public Usuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+        this.tipo = tipo;
     }
 
     public Integer getIdUsuario() {
@@ -72,8 +71,16 @@ public class Usuario {
     public void setSenhaUsuario(String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
-    
-    
-    
- 
+
+    public TipoUsuario getTipo() {
+        if (tipo == null) {
+            tipo = new TipoUsuario();
+        }
+        return tipo;
+    }
+
+    public void setTipo(TipoUsuario tipo) {
+        this.tipo = tipo;
+    }
+
 }

@@ -30,44 +30,48 @@ public class CadastrarUsuario extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ParseException {
-        String nomeUsuario = request.getParameter("nomeUsuario");
-        Date dataNascimentoUsuario = Conversoes.converterData(request.getParameter("dataNascimentoUsuario"));
-        String loginUsuario = request.getParameter("loginUsuario");
-        String senhaUsuario = request.getParameter("senhaUsuario");
-        String mensagem = null;
+        try (PrintWriter out = response.getWriter()) {
+            String nomeUsuario = request.getParameter("nomeUsuario");
+            Date dataNascimentoUsuario = Conversoes.converterData(request.getParameter("dataNascimentoUsuario"));
+            String loginUsuario = request.getParameter("loginUsuario");
+            String senhaUsuario = request.getParameter("senhaUsuario");
+            Integer idTipoUsuario = Integer.parseInt(request.getParameter("idTipoUsuario"));
+            String mensagem = null;
 
-        Usuario usuario = new Usuario();
-        usuario.setNomeUsuario(nomeUsuario);
-        usuario.setDataNascimentoUsuario(dataNascimentoUsuario);
-        usuario.setLoginUsuario(loginUsuario);
-        usuario.setSenhaUsuario(senhaUsuario);
+            Usuario usuario = new Usuario();
+            usuario.setNomeUsuario(nomeUsuario);
+            usuario.setDataNascimentoUsuario(dataNascimentoUsuario);
+            usuario.setLoginUsuario(loginUsuario);
+            usuario.setSenhaUsuario(senhaUsuario);
+            usuario.getTipo().setIdTipoUsuario(idTipoUsuario);
 
-        try {
-            GenericDAO dao = new UsuarioDAOImpl();
-            if (dao.cadastrar(usuario)) {
-                mensagem = "Foi realizado com sucesso!";
-            } else {
-                mensagem = " Problemas ao cadastrar Usuário";
+            try {
+                GenericDAO dao = new UsuarioDAOImpl();
+                if (dao.cadastrar(usuario)) {
+                    mensagem = "Foi realizado com sucesso!";
+                } else {
+                    mensagem = " Problemas ao cadastrar Usuário";
+                }
+                request.setAttribute("mensagem", mensagem);
+                request.getRequestDispatcher("ListarUsuario").forward(request, response);
+            } catch (Exception ex) {
+                System.out.println("Problemas no Servlet ao cadastrar Usuário! Erro " + ex.getMessage());
             }
-            request.setAttribute("mensagem", mensagem);
-            request.getRequestDispatcher("ListarUsuario").forward(request, response);
-        } catch (Exception ex) {
-            System.out.println("Problemas no Servlet ao cadastrar Usuário! Erro " + ex.getMessage());
+
         }
-
+    
     }
-
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -85,7 +89,7 @@ public class CadastrarUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
@@ -100,7 +104,7 @@ public class CadastrarUsuario extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
